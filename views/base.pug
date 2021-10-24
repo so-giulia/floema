@@ -18,18 +18,18 @@ html(lang="en")
     link(rel="manifest" href="/site.webmanifest")
     link(rel="mask-icon" href="/safari-pinned-tab.svg" color="#ff3a00")
 
+    meta(property="og:type" content="website")
+    meta(property="og:title" content=metadata.data.title)
+    meta(property="og:description" content=metadata.data.description)
+    meta(property="og:image" content=metadata.data.image ? meta.data.image.url : '')
+
+    meta(name="twitter:card" content="summary_large_image")
+    meta(name="twitter:title" content=metadata.data.title)
+    meta(name="twitter:description" content=metadata.data.description)
+    meta(name="twitter:image" content=metadata.data.image ? meta.data.image.url : '')
+
     //- css
     link(href="main.css" rel="stylesheet")
-
-    //- meta(property="og:type" content="website")
-    //- meta(property="og:title" content=meta.data.title)
-    //- meta(property="og:description" content=meta.data.description)
-    //- meta(property="og:image" content=meta.data.image ? meta.data.image.url : '')
-
-    //- meta(name="twitter:card" content="summary_large_image")
-    //- meta(name="twitter:title" content=meta.data.title)
-    //- meta(name="twitter:description" content=meta.data.description)
-    //- meta(name="twitter:image" content=meta.data.image ? meta.data.image.url : '')
 
   body
     include ./partials/preloader
