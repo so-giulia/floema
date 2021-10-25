@@ -14,14 +14,14 @@ block content
 
         h1.detail__information__title=product.data.title
 
-        p.product__information__content
+        .detail__information__content
           .detail__information__highlights
             each highlight in product.data.highlights
               p.detail__information__highlight
                 svg.detail__information__highlights__icon
                   use(xlink:href=`sprite-${highlight.icon.toLowerCase()}`)
 
-                span.detail__information__highlight__text=highlight.highlights_text
+                span.detail__information__highlight__text!=highlight.highlights_text.replace(/\n/, '<br>')
 
           .detail__information__list
               each item in product.data.informations

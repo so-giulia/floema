@@ -6,6 +6,12 @@
   width: 100%;
 }
 
+%center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 @mixin ratio ($height, $width) {
   font-size: 0;
   overflow: hidden;
