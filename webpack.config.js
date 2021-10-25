@@ -55,14 +55,14 @@ module.exports = {
               plugins: [
                 ["gifsicle", { interlaced: true }],
                 ["jpegtran", { progressive: true }],
-                ["optipng", { optimizationLevel: 5 }]
+                ["optipng", { optimizationLevel: 8 }]
               ],
             },
         }),
 
         new CleanWebpackPlugin(),
     ],
-    
+
     module: {
         rules: [
             {
@@ -108,7 +108,7 @@ module.exports = {
                 test: /\.(jpe?g|png|gif|svg|webp)$/i,
                 use: [
                   {
-                    loader: ImageMinimizerPlugin.loader,
+                    loader: ImageMinimizerPlugin.loader
                   }
                 ]
             },
