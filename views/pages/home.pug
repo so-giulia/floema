@@ -4,8 +4,16 @@ block variables
   - var template = 'home'
 
 block content
-  h1.home__title Home
+  .home
+    .home__wrapper
+      .home__titles
+        each collection, index in collections
+          .home__titles__label=`${home.data.collection} ${Numbers(index)}`
+          .home__titles__title=collection.data.title
 
-  a(href="/about") About page
-  a(href="/collections") Collections page
-  a(href="/detail/:id") Detail page
+      .home__gallery
+      each media in home.data.gallery
+        figure.home__gallery__media
+          img.home__gallery__media__image(src=media.image.url alt=media.image.alt)
+
+      a(href=Link(home.data.collections))=home.data.label
