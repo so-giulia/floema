@@ -1,15 +1,61 @@
+.about__highlight{
+  width: 125.8rem;
+  height: 104rem;
+  margin:20rem auto;
+
+  &:first-child{
+    margin-top: 0;
+  }
+  &:last-child{
+    margin-bottom: 0;
+  }
+}
 .about__highlight__wrapper{
+  width: 144rem;
+  height: 104rem;
+  position: relative;
+  margin: auto;
+
+  .about__highlight:nth-child(4) & {
+    width: 104rem;
+  }
 
 }
 .about__highlight__label{
-
+  @extend %description-12;
+  text-transform: uppercase;
+  text-align: center;
+  margin: auto;
+  font-weight: normal;
+  letter-spacing: 0.1rem;
+  width: 12rem;
 }
 .about__highlight__title{
-
+  @extend %absolute-center;
+  transform: translate(-50%, -70%) rotate(-90deg);
+  @extend %title-200;
+  padding-bottom: 4rem;
 }
 .about__highlight__media{
+  position: absolute;
+  width: 54rem;
+  height: 76rem;
 
+  .about__highlight:nth-child(4) & {
+    height: 52.8rem;
+    width: 36rem;
+  }
+
+  &:first-child{
+    top: 0;
+    left: 0;
+  }
+  &:last-child{
+    bottom: 0;
+    right: 0;
+  }
 }
 .about__highlight__media__img{
-
+  @extend %cover;
+  object-fit: cover;
 }
