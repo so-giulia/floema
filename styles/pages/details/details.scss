@@ -60,6 +60,7 @@
 }
 .detail__information__highlight__text{
   @extend %description-16;
+  letter-spacing: 0.03rem;
 }
 .detail__information__list{
   margin-top: 4rem;
