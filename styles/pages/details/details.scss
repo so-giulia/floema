@@ -3,10 +3,22 @@
   @extend %center;
   background: $color-quicksand;
   color: $color-quarter-spanish-white;
+
+  @include media('<phone') {
+    height: auto;
+    display: block;
+  }
 }
 .detail__wrapper{
   display: flex;
   align-items: center;
+
+  @include media('<phone') {
+    flex-direction: column;
+    width: 66rem;
+    margin: auto;
+    padding: 15rem 0 31.5rem 0;
+  }
 }
 
 
@@ -14,6 +26,13 @@
   height: 78.2rem;
   width: 55.4rem;
   position: relative;
+
+  @include media('<phone') {
+    height: 93.5rem;
+    width: 100%;
+    // margin: 0 auto 7.8rem auto;
+    margin-bottom: 7.8rem;
+  }
 }
 .detail__media__image{
   @extend %cover;
@@ -23,6 +42,10 @@
 
 .detail__information{
   padding-left: 8.2rem;
+
+  @include media('<phone') {
+    padding-left: 0;
+  }
 }
 .detail__information__collection{
   @extend %description-12;
@@ -35,6 +58,10 @@
 }
 .detail__information__content{
   padding-left: 18rem;
+
+  @include media('<phone') {
+    padding-left: 0;
+  }
 }
 .detail__information__highlights{
   margin-top: 6rem;
@@ -57,6 +84,12 @@
   //debug
   border: 1px solid currentColor;
   border-radius: 50%;
+
+  @include media('<phone') {
+    height: 9.2rem;
+    width: 9.2rem;
+    margin-right: 5.8rem;
+  }
 }
 .detail__information__highlight__text{
   @extend %description-16;
@@ -80,6 +113,11 @@
   color: rgba($color-quarter-spanish-white, .4);
   padding-right: 2.5rem;
   width: 10rem;
+
+  @include media('<phone') {
+    width: 15rem;
+    padding-right: 5rem;
+  }
 }
 .detail__information__item__description{
   @extend %description-16;
@@ -128,21 +166,44 @@
   }
 }
 
-.detail__button{
-  @extend %center;
-  width: 12.5rem;
-  height: 6rem;
+.detail__button {
+  @extend %description-14;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   position: absolute;
-  left: 50%;
   bottom: 5rem;
+  left: 50%;
   transform: translateX(-50%);
   z-index: 2;
 
-  span{
-    @extend %description-14;
-    text-transform: uppercase;
+  width: 12.4rem;
+  height: 6rem;
+  text-transform: uppercase;
+
+  // opacity: 0;
+  // transition: opacity 0.4s ease;
+
+  span {
+    display: inline-block;
+    line-height: 1;
+    position: relative;
+    vertical-align: middle;
+  }
+
+  // .detail--active & {
+  //   opacity: 1;
+  // }
+
+  @include media('<phone') {
+    bottom: 12rem;
+    height: 13rem;
+    width: 26.8rem;
   }
 }
-.detail__button__icon{
+
+.detail__button__icon {
   @extend %cover;
 }
