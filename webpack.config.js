@@ -71,7 +71,6 @@ module.exports = {
                     loader: 'babel-loader'
                 }
             },
-
             {
                 test: /\.scss$/,
                 use: [
