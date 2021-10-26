@@ -8,8 +8,12 @@ block content
     .collections__wrapper
       .collections__titles
         each collection, index in collections
-          .collection__titles__label!=`${home.data.collection}<br>${Numbers(index)}`
-          .collections__titles__title=collection.data.title
+          .collections__titles__item
+            .collections__titles__label
+              .home__titles__label__text!=`${home.data.collection}<br>${Numbers(index)}`
+
+            .collections__titles__title
+              .collections__titles__title__text=collection.data.title
 
       .collections__gallery
         .collections__gallery__wrapper
@@ -24,5 +28,12 @@ block content
           article.collections__article(class=`${index === 0 ? 'collections__article--active' : ''}`)
             h2.collections__article__title=`${collection.data.title} ${home.data.collection}`
             p.collections__article__description=collection.data.description
+
+      button.detail__button
+        span Close
+
+        svg.detail__button__icon(xmlns="http://www.w3.org/2000/svg" viewBox="0 0 124 60")
+          path(fill="none" stroke="#fff" opacity="0.4" d="M62,0.5c33.97,0,61.5,13.21,61.5,29.5S95.97,59.5,62,59.5S0.5,46.29,0.5,30S28.03,0.5,62,0.5z")
+          path(fill="none" stroke="#fff" d="M62,0.5c33.97,0,61.5,13.21,61.5,29.5S95.97,59.5,62,59.5S0.5,46.29,0.5,30S28.03,0.5,62,0.5z")
 
 

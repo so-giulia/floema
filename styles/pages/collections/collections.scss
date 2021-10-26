@@ -7,25 +7,26 @@
   @extend %cover;
   overflow: hidden;
 }
-.collections__titles{
-  display: flex;
-  align-items: center;
-  @extend %absolute-center;
-  transform: translate(-50%, -50%) rotate(-90deg);
+.collections__titles {
+  @extend %vertical-titles;
 }
-.collection__titles__label{
-  @extend %description-12;
-  text-transform: uppercase;
-  transform: rotate(90deg);
-  text-align: center;
-  margin:0 3rem;
-  font-weight: normal;
-  letter-spacing: 0.1rem;
+
+.collections__titles__label {
+  @extend %vertical-titles__label;
 }
-.collections__titles__title{
-  @extend %title-200;
-  padding-top: 2rem;
+
+.collections__titles__label__text {
+  @extend %vertical-titles__label__text;
 }
+
+.collections__titles__title {
+  @extend %vertical-titles__title;
+}
+
+.collections__titles__title__text {
+  @extend %vertical-titles__title__text;
+}
+
 
 
 .collections__gallery{

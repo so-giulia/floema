@@ -24,8 +24,9 @@
   left: 50%;
   position: absolute;
   top: 50%;
-  transform: translate(-50%, -50%) rotate(-90deg);
+  transform: translate(-50%, -50%);
   width: 10rem;
+  line-height: 1.5;
 }
 
 %vertical-titles__title {

@@ -2,7 +2,7 @@
   @extend %cover;
   @extend %center;
   background: $color-quicksand;
-  color: $color-white;
+  color: $color-quarter-spanish-white;
 }
 .detail__wrapper{
   display: flex;
@@ -77,7 +77,7 @@
 .detail__information__item__title{
   @extend %description-12;
 
-  color: rgba($color-white, .4);
+  color: rgba($color-quarter-spanish-white, .4);
   padding-right: 2.5rem;
   width: 10rem;
 }
@@ -88,6 +88,61 @@
 }
 .detail__information__link{
   @extend %title-30;
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+  margin-right: auto;
   margin-top: 3rem;
-  display: inline-block;
+  width: fit-content;
+
+  &:before {
+    content: '↗';
+    font-family: $font-suisse-bp;
+    font-weight: 100;
+    margin-left: 1rem;
+    margin-top: -0.2rem;
+  }
+}
+
+.detail__information__highlight__icon {
+  border-radius: 50%;
+  height: 4rem;
+  margin-right: 3.75rem;
+  width: 4rem;
+
+  @include media('<phone') {
+    height: 9.2rem;
+    margin-right: 5.8rem;
+    width: 9.2rem;
+  }
+}
+.detail__information__highlight__text {
+  @extend %description-18;
+
+  overflow: hidden;
+
+  span {
+    display: inline-block;
+    overflow: hidden;
+    vertical-align: top;
+  }
+}
+
+.detail__button{
+  @extend %center;
+  width: 12.5rem;
+  height: 6rem;
+  position: absolute;
+  left: 50%;
+  bottom: 5rem;
+  transform: translateX(-50%);
+  z-index: 2;
+
+  span{
+    @extend %description-14;
+    text-transform: uppercase;
+  }
+}
+.detail__button__icon{
+  @extend %cover;
 }
