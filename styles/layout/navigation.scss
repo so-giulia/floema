@@ -3,6 +3,8 @@
 
   z-index: z('navigation');
   color: $color-quarter-spanish-white;
+  position: fixed;
+  pointer-events: none;
 }
 
 .navigation__link {
@@ -13,6 +15,7 @@
   top: 4rem;
   transition: opacity 0.4s ease;
   width: 12.8rem;
+  pointer-events: auto;
 
   &:hover {
     opacity: 0.5;
@@ -32,20 +35,15 @@
   left: 4rem;
 }
 
-.navigation__list {
-  position: absolute;
-  top: 4rem;
-  right: 4rem;
-}
 
-// .navigation__list__item {
-//   pointer-events: auto;
-//   position: absolute;
-//   right: 4rem;
-//   top: 4rem;
-// }
+.navigation__list__item {
+  pointer-events: auto;
+  position: absolute;
+  right: 4rem;
+  top: 4rem;
+}
 
 .navigation__list__link {
   @extend %title-20;
-  // display: block;
+  display: block;
 }
