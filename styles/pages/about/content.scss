@@ -1,15 +1,18 @@
-.about__content{
-  position: relative;
-  margin:20rem auto;
-
+.about__content {
   display: flex;
   justify-content: center;
+  position: relative;
+  margin: 20rem auto;
 
-  &:first-child{
+  &:first-child {
     margin-top: 0;
   }
-  &:last-child{
+  &:last-child {
     margin-bottom: 0;
+  }
+
+  &:nth-child(3) {
+    margin-top: 30rem;
   }
 
   &:nth-child(5) {
@@ -20,9 +23,9 @@
     justify-content: flex-start;
   }
 
-  // &:nth-child(9) {
-  //   margin-top: 40rem;
-  // }
+  &:nth-child(9) {
+    margin-top: 40rem;
+  }
 
   @include media('<phone') {
     &:nth-child(5) {
@@ -34,10 +37,11 @@
     }
   }
 }
-.about__content__wrapper{
+
+.about__content__wrapper {
   display: flex;
 
-  .about__content--right &{
+  .about__content--right & {
     flex-direction: row-reverse;
   }
 
@@ -60,12 +64,12 @@
   }
 }
 
-.about__content__box{
+.about__content__box {
   display: flex;
 
   @include media('<=phone') {
-    margin: auto;
     width: 60.9rem;
+    margin: auto;
 
     .about__content:nth-child(3) & {
       margin-top: 10rem;
@@ -85,10 +89,12 @@
   }
 }
 
-.about__content__label{
-  @extend %description-12;
-  width: 18rem;
+.about__content__label {
+  font-size: 1.2rem;
+  letter-spacing: 0.032rem;
+  line-height: 2;
   text-transform: uppercase;
+  width: 18rem;
 
   @include media('<=phone') {
     font-size: 2.4rem;
@@ -98,11 +104,11 @@
   }
 }
 
-.about__content__description{
+.about__content__description {
   @extend %description-16;
   width: 39rem;
 
-  p:not(:first-child){
+  p:not(:first-child) {
     margin-top: 2.5rem;
   }
 
@@ -110,13 +116,15 @@
     width: calc(100% - 15rem);
   }
 }
-.about__content__media{
+
+.about__content__media {
+  overflow: hidden;
   position: relative;
 
   .about__content:nth-child(3) & {
-    width: 53.8rem;
     height: 80.8rem;
     margin-left: 18rem;
+    width: 53.8rem;
   }
 
   .about__content:nth-child(5) & {
@@ -163,7 +171,8 @@
     }
   }
 }
-.about__content__media__img{
+
+.about__content__media__image {
   @extend %cover;
   object-fit: cover;
 }

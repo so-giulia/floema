@@ -1,4 +1,4 @@
-.about__gallery{
+.about__gallery {
   height: 58.6rem;
   margin: 15rem 0;
   overflow: hidden;
@@ -14,20 +14,23 @@
     margin-bottom: 0;
   }
 }
-.about__gallery__wrapper{
+
+.about__gallery__wrapper {
+  align-items: center;
+  display: flex;
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  display: flex;
-  align-items: center;
 }
-.about__gallery__media{
-  position: relative;
-  width: 30.9rem;
+
+.about__gallery__media {
   height: 43.7rem;
   margin: 0 4rem;
+  position: relative;
+  width: 30.9rem;
 }
-.about__gallery__media__image{
+
+.about__gallery__media__image {
   @extend %cover;
   object-fit: cover;
 }

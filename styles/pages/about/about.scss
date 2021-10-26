@@ -1,6 +1,14 @@
-.about{
+.about {
+  @extend %page;
+
+  // For now (styling part)
   background: $color-cadet-blue;
   color: $color-bright-gray;
+  height: auto;
+
+  &--active {
+    @extend %page--active;
+  }
 }
 .about__wrapper{
   padding-top: 10rem;
