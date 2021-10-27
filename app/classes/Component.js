@@ -9,7 +9,10 @@ export default class Component extends EventEmitter {
     super()
 
     this.selector = element
-    this.selectorChildren = elements
+    this.selectorChildren = {
+      animationsTitles: '[data-animation="title"]'
+    }
+    this.elements = Object.assign(this.selectorChildren, elements)
 
     this.create()
     this.addEventListeners()
@@ -21,7 +24,6 @@ export default class Component extends EventEmitter {
     }else{
       this.element = document.querySelector(this.selector)
     }
-
     this.elements = {}
 
     each(this.selectorChildren, (entry, key) => {
