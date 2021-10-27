@@ -19,8 +19,7 @@ block content
         figure.home__gallery__media
           img.home__gallery__media__image(src=media.image.url alt=media.image.alt)
 
-      //- a.home__link(href=Link(home.data.collections))
-      a.home__link
+      a.home__link(href=Link(home.data.collections))
         span=home.data.label
 
         svg.home__link__icon(xmlns="http://www.w3.org/2000/svg" viewBox="0 0 288 60")
