@@ -4,6 +4,8 @@ import each from 'lodash/each'
 import map from 'lodash/map'
 
 import Title from 'animations/Title'
+// import Paragraph from 'animations/Paragraph'
+// import Label from 'animations/Label'
 export default class Page{
   constructor({
     element,
@@ -24,7 +26,7 @@ export default class Page{
   }
 
   create(){
-    // console.log(this.elements)
+    console.log(this.elements)
     this.element = document.querySelector(this.selector)
     this.elements = {}
 
@@ -53,13 +55,31 @@ export default class Page{
   }
 
   createAnimations(){
-    console.log(this.elements.animationsTitles)
+    this.animations = []
+
+    // Titles
     this.animationsTitles = map(this.elements.animationsTitles, element => {
       return new Title({
         element
       })
     })
-    console.log(this.animationsTitles)
+    this.animations.push(...this.animationsTitles)
+
+    // Paragraphs
+    // this.animationsParagraphs = map(this.elements.animationsParagraphs, element => {
+    //   return new Paragraph({
+    //     element
+    //   })
+    // })
+    // this.animations.push(...this.animationsParagraphs)
+
+    // // Labels
+    // this.animationsLabels = map(this.elements.animationsLabels, element => {
+    //   return new Label({
+    //     element
+    //   })
+    // })
+    // this.animations.push(...this.animationsLabels)
   }
 
   show(){
@@ -100,6 +120,8 @@ export default class Page{
 
   onResize(){
     this.scroll.limit = this.elements.wrapper.clientHeight - window.innerHeight
+
+    each(this.animations, animation => animation.onResize())
   }
 
   update(){

@@ -10,6 +10,8 @@ export default class Component extends EventEmitter {
 
     this.selector = element
     this.selectorChildren = {
+      animationsLabels: '[data-animation="label"]',
+      animationsParagraphs: '[data-animation="paragraph"]',
       animationsTitles: '[data-animation="title"]'
     }
     this.elements = Object.assign(this.selectorChildren, elements)
