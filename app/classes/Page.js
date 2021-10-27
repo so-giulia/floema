@@ -1,3 +1,4 @@
+import GSAP from 'gsap'
 import each from 'lodash/each'
 export default class Page{
   constructor({
@@ -29,6 +30,25 @@ export default class Page{
       }
 
       console.log(this.elements[key], entry)
+    })
+  }
+
+  show(){
+    // return promise when animation is finalized
+    return new Promise(resolve =>{
+      GSAP.from(this.element, {
+        autoAlpha: 0,
+        onComplete: resolve
+      })
+    })
+  }
+
+  hide(){
+    return new Promise(resolve =>{
+      GSAP.to(this.element, {
+        autoAlpha: 0,
+        onComplete: resolve
+      })
     })
   }
 }
