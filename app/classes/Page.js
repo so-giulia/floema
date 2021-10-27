@@ -3,9 +3,10 @@ import Prefix from 'prefix'
 import each from 'lodash/each'
 import map from 'lodash/map'
 
+import Highlight from 'animations/Highlight'
 import Title from 'animations/Title'
-// import Paragraph from 'animations/Paragraph'
-// import Label from 'animations/Label'
+import Paragraph from 'animations/Paragraph'
+import Label from 'animations/Label'
 export default class Page{
   constructor({
     element,
@@ -14,7 +15,10 @@ export default class Page{
   }){
     this.selector = element
     this.selectorChildren = {
-      animationsTitles: '[data-animation="title"]'
+      animationsHighlights: '[data-animation="highlight"]',
+      animationsTitles: '[data-animation="title"]',
+      animationsParagraphs: '[data-animation="paragraph"]',
+      animationsLabels: '[data-animation="label"]'
     }
     this.elements = Object.assign(this.selectorChildren, elements)
 
@@ -26,7 +30,7 @@ export default class Page{
   }
 
   create(){
-    console.log(this.elements)
+    console.log(this.elements.wrapper)
     this.element = document.querySelector(this.selector)
     this.elements = {}
 
@@ -57,6 +61,14 @@ export default class Page{
   createAnimations(){
     this.animations = []
 
+    // Highlights
+     this.animationsHighlights = map(this.elements.animationsHighlights, element => {
+      return new Highlight({
+        element
+      })
+    })
+    this.animations.push(...this.animationsHighlights)
+
     // Titles
     this.animationsTitles = map(this.elements.animationsTitles, element => {
       return new Title({
@@ -66,20 +78,20 @@ export default class Page{
     this.animations.push(...this.animationsTitles)
 
     // Paragraphs
-    // this.animationsParagraphs = map(this.elements.animationsParagraphs, element => {
-    //   return new Paragraph({
-    //     element
-    //   })
-    // })
-    // this.animations.push(...this.animationsParagraphs)
+    this.animationsParagraphs = map(this.elements.animationsParagraphs, element => {
+      return new Paragraph({
+        element
+      })
+    })
+    this.animations.push(...this.animationsParagraphs)
 
-    // // Labels
-    // this.animationsLabels = map(this.elements.animationsLabels, element => {
-    //   return new Label({
-    //     element
-    //   })
-    // })
-    // this.animations.push(...this.animationsLabels)
+    // Labels
+    this.animationsLabels = map(this.elements.animationsLabels, element => {
+      return new Label({
+        element
+      })
+    })
+    this.animations.push(...this.animationsLabels)
   }
 
   show(){
