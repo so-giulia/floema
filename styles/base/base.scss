@@ -6,18 +6,25 @@
 }
 
 html{
+  @extend %cover;
   font-size: calc((100vw / 1920)*10);
   line-height: 1;
+
+  position: fixed;
+  overflow: hidden;
 
   @include media('<phone'){
     font-size: calc((100vw / 750)*10);
   }
 }
 body{
+  @extend %cover;
   @extend %description-14;
 
   font-family: $font-suisse-bp, sans-serif;
   font-weight:300;
+
+  position: fixed;
 }
 
 a{
@@ -35,4 +42,8 @@ button{
   border: none;
   color: inherit;
   cursor: pointer;
+}
+
+.content{
+  @extend %cover;
 }
