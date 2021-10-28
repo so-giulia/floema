@@ -1,8 +1,8 @@
 .collections {
   @extend %page;
 
-  background: $color-quicksand;
-  color: $color-quarter-spanish-white;
+  // background: $color-quicksand;
+  // color: $color-quarter-spanish-white;
   z-index: 0;
 
   &--active {
@@ -20,9 +20,9 @@
   @extend %vertical-titles;
 }
 
-.collections__titles__wrapper {
+// .collections__titles__wrapper {
 
-}
+// }
 
 .collections__titles__label {
   @extend %vertical-titles__label;

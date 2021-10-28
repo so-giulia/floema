@@ -7,6 +7,10 @@ import Highlight from 'animations/Highlight'
 import Title from 'animations/Title'
 import Paragraph from 'animations/Paragraph'
 import Label from 'animations/Label'
+
+import { ColorsManager } from 'classes/Colors'
+import AsyncLoad from 'classes/AsyncLoad'
+
 export default class Page{
   constructor({
     element,
@@ -18,7 +22,9 @@ export default class Page{
       animationsHighlights: '[data-animation="highlight"]',
       animationsTitles: '[data-animation="title"]',
       animationsParagraphs: '[data-animation="paragraph"]',
-      animationsLabels: '[data-animation="label"]'
+      animationsLabels: '[data-animation="label"]',
+
+      preloaders: '[data-src]'
     }
     this.elements = Object.assign(this.selectorChildren, elements)
 
@@ -56,8 +62,12 @@ export default class Page{
     })
 
     this.createAnimations()
+    this.createPreloader()
   }
 
+  // —————————————————— //
+  // ——— ANIMATIONS ——— //
+  // —————————————————— //
   createAnimations(){
     this.animations = []
 
@@ -94,7 +104,17 @@ export default class Page{
     this.animations.push(...this.animationsLabels)
   }
 
+  createPreloader(){
+    this.preloaders = map(this.elements.preloaders, element => {
+      return new AsyncLoad({element})
+    })
+  }
+
   show(){
+    ColorsManager.change({
+      backgroundColor: this.element.getAttribute('data-background'),
+      color: this.element.getAttribute('data-color')
+    })
     // return promise when animation is finalized
     return new Promise(resolve =>{
       this.animateIn = GSAP.timeline()
@@ -114,7 +134,7 @@ export default class Page{
 
   hide(){
     return new Promise(resolve =>{
-      this.removeEventListeners()
+      this.destroy()
 
       this.animateOut = GSAP.timeline()
 
@@ -125,6 +145,9 @@ export default class Page{
     })
   }
 
+  // —————————————— //
+  // ——— EVENTS ——— //
+  // —————————————— //
   onMouseWheel(evt){
     const { deltaY } = evt
     this.scroll.target += deltaY
@@ -150,11 +173,21 @@ export default class Page{
     }
   }
 
+  // ————————————————— //
+  // ——— LISTENERS ——— //
+  // ————————————————— //
   addEventListeners(){
     window.addEventListener('mousewheel', this.onMouseWheelEvent)
   }
 
   removeEventListeners(){
     window.addEventListener('mousewheel', this.onMouseWheelEvent)
+  }
+
+  // ——————————————— //
+  // ——— DESTROY ——— //
+  // ——————————————— //
+  destroy(){
+    this.removeEventListeners()
   }
 }

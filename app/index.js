@@ -1,5 +1,8 @@
 import each from 'lodash/each'
 
+import Canvas from 'components/Canvas'
+
+import Navigation from 'components/Navigation'
 import Preloader from 'components/Preloader'
 
 import Home from 'pages/Home'
@@ -9,8 +12,11 @@ import Detail from 'pages/Detail'
 
 class App{
   constructor(){
-    this.createPreloader()
     this.createContent()
+
+    this.createPreloader()
+    this.createNavigation()
+    this.createCanvas()
     this.createPages()
 
     this.addEventListeners()
@@ -23,9 +29,19 @@ class App{
   // —————————————— //
   // ——— CREATE ——— //
   // —————————————— //
+  createNavigation(){
+    this.navigation = new Navigation({
+      template: this.template
+    })
+  }
+
   createPreloader(){
     this.preloader = new Preloader()
     this.preloader.once('completed', this.onPreloaded.bind(this))
+  }
+
+  createCanvas(){
+    this.canvas = new Canvas()
   }
 
   createContent(){
@@ -66,8 +82,11 @@ class App{
       const div = document.createElement('div')
       div.innerHTML = html
 
+
       const divContent = div.querySelector('.content')
       this.template = divContent.getAttribute('data-template')
+
+      this.navigation.onChange(this.template)
 
       this.content.setAttribute('data-template', this.template)
       this.content.innerHTML = divContent.innerHTML
@@ -86,6 +105,9 @@ class App{
   }
 
   onResize(){
+    if(this.canvas && this.canvas.onResize){
+      this.canvas.onResize()
+    }
     if(this.page && this.page.onResize){
       this.page.onResize()
     }
@@ -95,6 +117,9 @@ class App{
   // ——— LOOP ——— //
   // ———————————— //
   update(){
+    if(this.canvas && this.canvas.update){
+      this.canvas.update()
+    }
     if(this.page && this.page.update){
       this.page.update()
     }

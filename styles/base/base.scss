@@ -10,6 +10,9 @@ html{
   font-size: calc((100vw / 1920)*10);
   line-height: 1;
 
+  background: $color-contessa;
+  color: $color-quarter-spanish-white;
+
   position: fixed;
   overflow: hidden;
 
@@ -23,7 +26,6 @@ body{
 
   font-family: $font-suisse-bp, sans-serif;
   font-weight:300;
-
   position: fixed;
 }
 
@@ -33,8 +35,14 @@ a{
   text-decoration: none;
 }
 
-img{
+img {
+  opacity: 0;
+  transition: opacity 0.4s ease;
   vertical-align: middle;
+
+  &.loaded {
+    opacity: 1;
+  }
 }
 
 button{

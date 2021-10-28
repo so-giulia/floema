@@ -1,9 +1,8 @@
 %page {
   @extend %cover;
 
-  //later for javascript!!
-  // opacity: 0;
-  // visibility: hidden;
+  opacity: 0;
+  visibility: hidden;
   z-index: z('content');
 }
 

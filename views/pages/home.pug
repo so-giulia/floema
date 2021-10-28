@@ -4,7 +4,7 @@ block variables
   - var template = 'home'
 
 block content
-  .home
+  .home(data-background="#C97164" data-color="#F9F1E7")
     .home__wrapper
       .home__titles
         each collection, index in collections
@@ -15,9 +15,9 @@ block content
             .home__titles__title__text=collection.data.title
 
       .home__gallery
-      each media in home.data.gallery
-        figure.home__gallery__media
-          img.home__gallery__media__image(data-src=media.image.url alt=media.image.alt)
+        each media in home.data.gallery
+          figure.home__gallery__media
+            img.home__gallery__media__image(data-src=media.image.url alt=media.image.alt)
 
       a.home__link(href=Link(home.data.collections))
         span=home.data.label
