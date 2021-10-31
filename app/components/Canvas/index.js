@@ -21,7 +21,6 @@ export default class Canvas{
 
   createCamera(){
     this.camera = new Camera(this.gl)
-
     this.camera.position.z = 5
   }
   createScene(){
@@ -35,6 +34,9 @@ export default class Canvas{
     })
   }
 
+  // —————————————— //
+  // ——— EVENTS ——— //
+  // —————————————— //
   onResize(){
     this.renderer.setSize(window.innerWidth, window.innerHeight)
 
@@ -42,7 +44,7 @@ export default class Canvas{
       aspect: window.innerWidth / window.innerHeight
     })
 
-    const fov = this.camera.fov = (Math.PI / 180)
+    const fov = this.camera.fov * (Math.PI / 180)
     const height = 2 * Math.tan(fov / 2) * this.camera.position.z
     const width = height * this.camera.aspect
 
@@ -50,6 +52,7 @@ export default class Canvas{
       height,
       width
     }
+
     if(this.home){
       this.home.onResize({
         sizes: this.sizes
@@ -57,6 +60,10 @@ export default class Canvas{
     }
   }
 
+
+  // ———————————— //
+  // ——— LOOP ——— //
+  // ———————————— //
   update(){
     this.renderer.render({
       camera: this.camera,

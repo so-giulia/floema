@@ -78,12 +78,12 @@ class App{
 
     if(request.status === 200){
       const html = await request.text()
-
       const div = document.createElement('div')
+
       div.innerHTML = html
 
-
       const divContent = div.querySelector('.content')
+
       this.template = divContent.getAttribute('data-template')
 
       this.navigation.onChange(this.template)
@@ -100,7 +100,7 @@ class App{
 
       this.addLinkListeners()
     }else{
-      console.log('errError')
+      console.log('Error')
     }
   }
 
@@ -112,6 +112,23 @@ class App{
       this.page.onResize()
     }
   }
+
+  onTouchDown(event){
+    if(this.canvas && this.canvas.onTouchDown){
+      this.canvas.onTouchDown(event)
+    }
+  }
+  onTouchMove(event){
+    if(this.canvas && this.canvas.onTouchMove){
+      this.canvas.onTouchMove(event)
+    }
+  }
+  onTouchUp(event){
+    if(this.canvas && this.canvas.onTouchUp){
+      this.canvas.onTouchUp(event)
+    }
+  }
+
 
   // ———————————— //
   // ——— LOOP ——— //
@@ -130,6 +147,14 @@ class App{
   // ——— LISTENERS ——— //
   // ————————————————— //
   addEventListeners(){
+    window.addEventListener('mousedown', this.onTouchDown.bind(this))
+    window.addEventListener('mousemove', this.onTouchMove.bind(this))
+    window.addEventListener('mouseup', this.onTouchUp.bind(this))
+
+    window.addEventListener('touchdown', this.onTouchDown.bind(this))
+    window.addEventListener('touchmove', this.onTouchMove.bind(this))
+    window.addEventListener('touchup', this.onTouchUp.bind(this))
+
     window.addEventListener('resize', this.onResize.bind(this))
   }
 

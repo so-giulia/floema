@@ -1,14 +1,13 @@
 import { Plane, Transform } from 'ogl'
 import map from 'lodash/map'
-
 import Media from './Media'
-
 
 export default class {
   constructor({ gl, scene, sizes }){
     this.gl = gl
-    this.group = new Transform()
     this.sizes = sizes
+
+    this.group = new Transform()
 
     this.mediasElements = document.querySelectorAll('.home__gallery__media__image')
 
@@ -35,7 +34,15 @@ export default class {
     })
   }
 
+  // —————————————— //
+  // ——— EVENTS ——— //
+  // —————————————— //
   onResize(event){
     map(this.medias, media => media.onResize(event))
   }
+
+  // ———————————— //
+  // ——— LOOP ——— //
+  // ———————————— //
+
 }

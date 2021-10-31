@@ -56,21 +56,7 @@
   @extend %cover;
   height: 172.5rem;
   width: 241.8rem;
-  // display: flex;
-  // flex-wrap: wrap;
-
-  // width: 100%;
-
-  // padding: 0 2.5rem;
-  // position: absolute;
-  // top: 0;
-  // left: 50%;
-  // transform: translateX(-50%);
-
-
-  // @include media('<=phone') {
-  //   padding: 0 1.5rem;
-  // }
+  visibility: hidden;
 }
 .home__gallery__media{
   // padding: 2.5rem;
