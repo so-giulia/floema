@@ -153,7 +153,7 @@ class App{
 
     window.addEventListener('touchdown', this.onTouchDown.bind(this))
     window.addEventListener('touchmove', this.onTouchMove.bind(this))
-    window.addEventListener('touchup', this.onTouchUp.bind(this))
+    window.addEventListener('touchend', this.onTouchUp.bind(this))
 
     window.addEventListener('resize', this.onResize.bind(this))
   }
