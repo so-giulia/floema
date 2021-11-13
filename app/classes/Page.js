@@ -31,8 +31,6 @@ export default class Page{
     this.id = id
 
     this.transformPrefix = Prefix('transform')
-
-    this.onMouseWheelEvent = this.onMouseWheel.bind(this)
   }
 
   create(){
@@ -148,17 +146,20 @@ export default class Page{
   // —————————————— //
   // ——— EVENTS ——— //
   // —————————————— //
-  onMouseWheel(evt){
-    const { deltaY } = evt
-    this.scroll.target += deltaY
-  }
-
   onResize(){
     this.scroll.limit = this.elements.wrapper.clientHeight - window.innerHeight
 
     each(this.animations, animation => animation.onResize())
   }
 
+  onWheel({ pixelY }){
+    this.scroll.target += pixelY
+  }
+
+
+  // —————————————— //
+  // ——— LOOP ——— //
+  // —————————————— //
   update(){
     this.scroll.target = GSAP.utils.clamp(0, this.scroll.limit, this.scroll.target)
     this.scroll.current = GSAP.utils.interpolate(this.scroll.current, this.scroll.target, 0.1)
@@ -177,11 +178,9 @@ export default class Page{
   // ——— LISTENERS ——— //
   // ————————————————— //
   addEventListeners(){
-    window.addEventListener('mousewheel', this.onMouseWheelEvent)
   }
 
   removeEventListeners(){
-    window.addEventListener('mousewheel', this.onMouseWheelEvent)
   }
 
   // ——————————————— //
