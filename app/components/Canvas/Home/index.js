@@ -2,20 +2,17 @@ import { Plane, Transform } from 'ogl'
 import GSAP from 'gsap'
 import map from 'lodash/map'
 import Media from './Media'
+
 export default class {
   constructor({ gl, scene, sizes }){
     this.gl = gl
+    this.scene = scene
     this.sizes = sizes
 
     this.group = new Transform()
 
     this.galleryElement = document.querySelector('.home__gallery')
     this.mediasElements = document.querySelectorAll('.home__gallery__media__image')
-
-    this.createGeometry()
-    this.createGallery()
-
-    this.group.setParent(scene)
 
     this.x = {
       current: 0,
@@ -38,6 +35,13 @@ export default class {
       x: 0,
       y: 0
     }
+
+    this.createGeometry()
+    this.createGallery()
+
+    this.group.setParent(this.scene)
+
+    this.show()
   }
 
   createGeometry(){
@@ -56,6 +60,17 @@ export default class {
       })
     })
   }
+
+  // —————————————————— //
+  // ——— ANIMATIONS ——— //
+  // —————————————————— //
+  show(){
+     map(this.medias, media => media.show())
+  }
+  hide(){
+    map(this.medias, media => media.hide())
+  }
+
 
   // —————————————— //
   // ——— EVENTS ——— //
@@ -162,6 +177,13 @@ export default class {
 
       media.update(this.scroll)
     })
+  }
+
+  // ——————————————— //
+  // ——— DESTROY ———— //
+  // ——————————————— //
+  destroy(){
+    this.scene.removeChild(this.group)
   }
 
 }
