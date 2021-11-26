@@ -57,7 +57,7 @@ export default class Gallery{
   // ——— EVENTS ——— //
   // —————————————— //
   onResize(event){
-    this.bounds = this.element.getBoundingClientRect()
+    this.bounds = this.elementsWrapper.getBoundingClientRect()
 
     this.sizes = event.sizes
 
