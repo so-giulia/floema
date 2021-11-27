@@ -1,5 +1,5 @@
 import { random } from 'gsap/all'
-import { Mesh, Program, Texture } from 'ogl'
+import { Mesh, Program } from 'ogl'
 
 import GSAP from 'gsap'
 
@@ -26,15 +26,11 @@ export default class{
   }
 
   createTexture(){
-    this.texture = new Texture(this.gl)
-
     const image = this.element.querySelector('img')
 
-    this.image = new window.Image()
-    this.image.crossOrigin = 'anonymous'
-    this.image.src = image.getAttribute('data-src')
-    this.image.onload = () => (this.texture.image = this.image)
+    this.texture = window.TEXTURES[image.getAttribute('data-src')]
   }
+
   createProgram(){
     this.program = new Program(this.gl, {
       fragment,
@@ -45,6 +41,7 @@ export default class{
       }
     })
   }
+
   createMesh(){
     this.mesh = new Mesh(this.gl, {
       geometry: this.geometry,
@@ -115,10 +112,6 @@ export default class{
 
     this.mesh.scale.x = this.sizes.width * this.width
     this.mesh.scale.y = this.sizes.height * this.height
-
-    // const scale = GSAP.utils.mapRange(0, this.sizes.width / 2, 0.1, 0, Math.abs(this.mesh.position.x))
-    // this.mesh.scale.x += scale
-    // this.mesh.scale.y += scale
   }
 
   updateX(x = 0){

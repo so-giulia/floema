@@ -1,5 +1,5 @@
 import { random } from 'gsap/all'
-import { Mesh, Program, Texture } from 'ogl'
+import { Mesh, Program } from 'ogl'
 
 import GSAP from 'gsap'
 
@@ -26,12 +26,9 @@ export default class{
   }
 
   createTexture(){
-    this.texture = new Texture(this.gl)
+    const image = this.element
 
-    this.image = new window.Image()
-    this.image.crossOrigin = 'anonymous'
-    this.image.src = this.element.getAttribute('data-src')
-    this.image.onload = () => (this.texture.image = this.image)
+    this.texture = window.TEXTURES[image.getAttribute('data-src')]
   }
   createProgram(){
     this.program = new Program(this.gl, {
