@@ -45,6 +45,11 @@ img {
   }
 }
 
+canvas{
+  position: relative;
+  pointer-events: none;
+}
+
 button{
   background: none;
   border: none;

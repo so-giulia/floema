@@ -124,6 +124,7 @@ app.get('/detail/:uid', async (req, res) => {
   initApi(req).then(() => {
       res.render('pages/detail', {
         ...defaults,
+        home,
         product
       })
   })
