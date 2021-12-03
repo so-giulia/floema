@@ -34,7 +34,6 @@ export default class Page{
   }
 
   create(){
-    console.log(this.elements.wrapper)
     this.element = document.querySelector(this.selector)
     this.elements = {}
 
@@ -108,13 +107,15 @@ export default class Page{
     })
   }
 
-  show(){
+  show(animation){
     ColorsManager.change({
       backgroundColor: this.element.getAttribute('data-background'),
       color: this.element.getAttribute('data-color')
     })
-    // return promise when animation is finalized
-    return new Promise(resolve =>{
+
+    if (animation){
+      this.animateIn = animation
+    }else{
       this.animateIn = GSAP.timeline()
 
       this.animateIn.fromTo(this.element, {
@@ -122,11 +123,10 @@ export default class Page{
       }, {
         autoAlpha: 1
       })
+    }
 
-      this.animateIn.call( () => {
-        this.addEventListeners()
-        resolve()
-      })
+    this.animateIn.call( () => {
+      this.addEventListeners()
     })
   }
 

@@ -2,8 +2,6 @@
   @extend %center;
   @extend %page;
 
-  // background: $color-contessa;
-  // color: $color-quarter-spanish-white;
   text-align: center;
 }
 
@@ -35,21 +33,12 @@
   @extend %vertical-titles;
 }
 
-.home__titles__title {
-  @extend %vertical-titles__title;
-}
-
-.home__titles__title__text {
-  @extend %vertical-titles__title__text;
-}
-
-
-.home__titles__label {
+.home__titles__label {  
   @extend %vertical-titles__label;
 }
 
-.home__titles__label__text {
-  @extend %vertical-titles__label__text;
+.home__titles__title {
+  @extend %vertical-titles__title;
 }
 
 .home__gallery{

@@ -92,8 +92,6 @@ const handleRequest = async api => {
     })
   })
 
-  console.log(assets)
-
   return {
     about,
     assets,

@@ -3,8 +3,8 @@ import { Mesh, Program } from 'ogl'
 
 import GSAP from 'gsap'
 
-import fragment from 'shaders/plane-fragments.glsl'
-import vertex from 'shaders/plane-vertex.glsl'
+import fragment from 'shaders/collections-fragment.glsl'
+import vertex from 'shaders/collections-vertex.glsl'
 
 export default class{
   constructor({element, geometry, gl, index, scene, sizes}){
@@ -15,14 +15,25 @@ export default class{
     this.scene = scene
     this.sizes = sizes
 
-    this.createTexture()
-    this.createProgram()
-    this.createMesh()
 
     this.extra = {
       x: 0,
       y: 0
     }
+
+    this.opacity = {
+      current: 0,
+      target: 0,
+      multiplier: 0,
+      lerp: 0.1
+    }
+
+    this.createTexture()
+    this.createProgram()
+    this.createMesh()
+    this.createBounds({
+      sizes: this.sizes
+    })
   }
 
   createTexture(){
@@ -56,7 +67,6 @@ export default class{
 
     this.updateScale()
     this.updateX()
-    this.updateY()
   }
 
   // —————————————————— //
@@ -64,16 +74,16 @@ export default class{
   // —————————————————— //
 
   show(){
-    GSAP.fromTo(this.program.uniforms.uAlpha, {
-      value: 0
+    GSAP.fromTo(this.opacity, {
+      multiplier: 0
     }, {
-      value: 1
+      multiplier: 1
     })
   }
 
   hide(){
-    GSAP.to(this.program.uniforms.uAlpha, {
-      value: 0
+    GSAP.to(this.opacity, {
+      multiplier: 0
     })
   }
 
@@ -88,7 +98,6 @@ export default class{
 
     this.createBounds(sizes)
     this.updateX(scroll && scroll.x)
-    this.updateY(scroll && scroll.y)
   }
 
 
@@ -108,15 +117,18 @@ export default class{
     this.mesh.position.x = (-this.sizes.width / 2) + (this.mesh.scale.x / 2) + (this.x * this.sizes.width) + this.extra.x
   }
 
-  updateY(y = 0){
-    this.y = (this.bounds.top + y) / window.innerHeight
-    this.mesh.position.y = (this.sizes.height / 2) - (this.mesh.scale.y / 2) - (this.y * this.sizes.height) + this.extra.y
-  }
-
-  update(scroll){
-    if(!this.bounds) return
-
+  update(scroll, index){
     this.updateX(scroll)
-    this.updateY()
+
+    const amplitude = 0.1
+    const frequency = 1
+
+    this.mesh.rotation.z = -0.02 * Math.PI * Math.sin(this.index / frequency)
+    this.mesh.position.y = amplitude * Math.sin(this.index / frequency)
+
+    this.opacity.target = index === this.index ? 1 : 0.4
+    this.opacity.current = GSAP.utils.interpolate(this.opacity.current, this.opacity.target, this.opacity.lerp)
+
+    this.program.uniforms.uAlpha.value = this.opacity.multiplier * this.opacity.current
   }
 }

@@ -3,7 +3,7 @@ import { Mesh, Program } from 'ogl'
 
 import GSAP from 'gsap'
 
-import fragment from 'shaders/plane-fragments.glsl'
+import fragment from 'shaders/plane-fragment.glsl'
 import vertex from 'shaders/plane-vertex.glsl'
 
 export default class{
@@ -15,14 +15,18 @@ export default class{
     this.scene = scene
     this.sizes = sizes
 
-    this.createTexture()
-    this.createProgram()
-    this.createMesh()
-
     this.extra = {
       x: 0,
       y: 0
     }
+
+    this.createTexture()
+    this.createProgram()
+    this.createMesh()
+
+    this.createBounds({
+      sizes: this.sizes
+    })
   }
 
   createTexture(){
@@ -126,8 +130,6 @@ export default class{
   }
 
   update(scroll){
-    if(!this.bounds) return
-
     this.updateRotation()
     this.updateScale()
     this.updateX(scroll)

@@ -1,37 +1,38 @@
 // import { random } from 'gsap/all'
-import { Mesh, Program } from 'ogl'
+import { Mesh, Plane, Program } from 'ogl'
 
 import GSAP from 'gsap'
 
-import fragment from 'shaders/home-fragment.glsl'
-import vertex from 'shaders/home-vertex.glsl'
+import fragment from 'shaders/plane-fragment.glsl'
+import vertex from 'shaders/plane-vertex.glsl'
 
 export default class{
-  constructor({element, geometry, gl, index, scene, sizes}){
-    this.element = element
-    this.geometry = geometry
+  constructor({ gl, scene, sizes, transition}){
+    this.id = 'detail'
+
+    this.element = document.querySelector('.detail__media__image')
+
     this.gl = gl
-    this.index = index
     this.scene = scene
     this.sizes = sizes
+    this.transition = transition
 
-    this.extra = {
-      x: 0,
-      y: 0
-    }
+    this.geometry = new Plane(this.gl)
 
     this.createTexture()
     this.createProgram()
     this.createMesh()
-    this.onResize({
+    this.createBounds({
       sizes: this.sizes
     })
+
+    this.show()
   }
 
   createTexture(){
-    const image = this.element
+    const image = this.element.getAttribute('data-src')
 
-    this.texture = window.TEXTURES[image.getAttribute('data-src')]
+    this.texture = window.TEXTURES[image]
   }
   createProgram(){
     this.program = new Program(this.gl, {
@@ -39,9 +40,7 @@ export default class{
       vertex,
       uniforms: {
         tMap: { value: this.texture },
-        uAlpha: { value: 0 },
-        uSpeed: { value: 0 },
-        uViewportSizes: { value: [this.sizes.width, this.sizes.height]}
+        uAlpha: { value: 0 }
       }
     })
   }
@@ -51,8 +50,9 @@ export default class{
       program: this.program
     })
 
+    this.mesh.rotation.z = Math.PI * 0.01
+
     this.mesh.setParent(this.scene)
-    this.mesh.rotation.z = GSAP.utils.random(-Math.PI * 0.03, Math.PI * 0.03)
   }
 
   createBounds({ sizes }){
@@ -70,11 +70,15 @@ export default class{
   // —————————————————— //
 
   show(){
-    GSAP.fromTo(this.program.uniforms.uAlpha, {
-      value: 0
-    }, {
-      value: 0.4
-    })
+    if(this.transition){
+        this.transition.animate(this.mesh, () => {
+          this.program.uniforms.uAlpha.value = 1
+        })
+    }else{
+      GSAP.to(this.program.uniforms.uAlpha, {
+        value: 1
+      })
+    }
   }
 
   hide(){
@@ -86,17 +90,21 @@ export default class{
   // —————————————— //
   // ——— EVENTS ——— //
   // —————————————— //
-  onResize(sizes, scroll){
-    this.extra = {
-      x: 0,
-      y: 0
-    }
-
+  onResize(sizes){
     this.createBounds(sizes)
-    this.updateX(scroll && scroll.x)
-    this.updateY(scroll && scroll.y)
+    this.updateX()
+    this.updateY()
   }
 
+  onTouchDown(){
+
+  }
+  onTouchMove(){
+
+  }
+  onTouchUp(){
+
+  }
 
   // ———————————— //
   // ——— LOOP ——— //
@@ -109,20 +117,25 @@ export default class{
     this.mesh.scale.y = this.sizes.height * this.height
   }
 
-  updateX(x = 0){
-    this.x = (this.bounds.left + x) / window.innerWidth
-    this.mesh.position.x = (-this.sizes.width / 2) + (this.mesh.scale.x / 2) + (this.x * this.sizes.width) + this.extra.x
+  updateX(){
+    this.x = (this.bounds.left) / window.innerWidth
+    this.mesh.position.x = (-this.sizes.width / 2) + (this.mesh.scale.x / 2) + (this.x * this.sizes.width)
   }
 
-  updateY(y = 0){
-    this.y = (this.bounds.top + y) / window.innerHeight
-    this.mesh.position.y = (this.sizes.height / 2) - (this.mesh.scale.y / 2) - (this.y * this.sizes.height) + this.extra.y
+  updateY(){
+    this.y = (this.bounds.top) / window.innerHeight
+    this.mesh.position.y = (this.sizes.height / 2) - (this.mesh.scale.y / 2) - (this.y * this.sizes.height)
   }
 
-  update(scroll, speed){
-    this.updateX(scroll.x)
-    this.updateY(scroll.y)
+  update(){
+    this.updateX()
+    this.updateY()
+  }
 
-    this.program.uniforms.uSpeed.value = speed
+  // ——————————————— //
+  // ——— DESTROY ——— //
+  // ——————————————— //
+  destroy(){
+    this.scene.removeChild(this.mesh)
   }
 }

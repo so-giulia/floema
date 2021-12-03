@@ -77,7 +77,6 @@ export default class Button extends Component {
   }
 
   onMouseEnter () {
-    // console.log('enter')
     this.pathValue -= this.pathLength
 
     GSAP.to(this.path, {
@@ -90,7 +89,6 @@ export default class Button extends Component {
   }
 
   onMouseLeave () {
-    // console.log('leave')
     this.pathValue -= this.pathLength
 
     GSAP.to(this.path, {

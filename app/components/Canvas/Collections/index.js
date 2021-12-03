@@ -7,10 +7,12 @@ import Prefix from 'prefix'
 
 
 export default class {
-  constructor({ gl, scene, sizes }){
+  constructor({ gl, scene, sizes, transition }){
+    this.id = 'collections'
     this.gl = gl
     this.scene = scene
     this.sizes = sizes
+    this.transition = transition
 
     this.transformPrefix = Prefix('transform')
 
@@ -37,6 +39,10 @@ export default class {
     this.createGeometry()
     this.createGallery()
 
+    this.onResize({
+      sizes: this.sizes
+    })
+
     this.group.setParent(this.scene)
 
     this.show()
@@ -62,8 +68,36 @@ export default class {
   // —————————————————— //
   // ——— ANIMATIONS ——— //
   // —————————————————— //
-  show(){
-     map(this.medias, media => media.show())
+  async show(){
+    if(this.transition){
+      const { src } = this.transition.mesh.program.uniforms.tMap.value.image
+      const texture = window.TEXTURES[src]
+      const media = this.medias.find(media => media.texture === texture)
+      const scroll = -media.bounds.left - media.bounds.width / 2 + window.innerWidth / 2
+
+      this.update()
+
+      this.transition.animate({
+        position: { x: 0, y: media.mesh.position.y, z: 0 },
+        rotation: media.mesh.rotation,
+        scale: media.mesh.scale
+      }, () => {
+        media.opacity.multiplier = 1
+
+        map(this.medias, item => {
+          if(media !== item){
+            item.show()
+          }
+        })
+
+        this.scroll.current = this.scroll.target = this.scroll.start = this.scroll.last = scroll
+
+      })
+    } else {
+      map(this.medias, media => media.show())
+    }
+
+    map(this.medias, media => media.show())
   }
   hide(){
     map(this.medias, media => media.hide())
@@ -120,15 +154,13 @@ export default class {
       }
     })
 
-    this.titlesElements.style[this.transformPrefix] = `translateY(-${25 * selectedCollection}%) translate(-50%, -50%)`
+    this.titlesElements.style[this.transformPrefix] = `translateY(-${50 * selectedCollection}%) translate(-50%, -50%) rotate(-90deg)`
   }
 
   // ———————————— //
   // ——— LOOP ——— //
   // ———————————— //
   update(){
-    if (!this.bounds) return
-
     this.scroll.target = GSAP.utils.clamp(-this.scroll.limit, 0, this.scroll.target)
 
     this.scroll.current = GSAP.utils.interpolate(this.scroll.current, this.scroll.target, this.scroll.lerp)
@@ -143,15 +175,15 @@ export default class {
 
     this.scroll.last= this.scroll.current
 
-    map(this.medias, media => {
-      media.update(this.scroll.current)
-    })
-
-    const index = Math.floor(Math.abs(this.scroll.current / this.scroll.limit) * this.medias.length)
+    const index = Math.floor(Math.abs((this.scroll.current - (this.medias[0].bounds.width / 2)) / this.scroll.limit) * (this.medias.length - 1))
 
     if(this.index !== index){
       this.onChange(index)
     }
+
+    map(this.medias, (media, index) => {
+      media.update(this.scroll.current, this.index)
+    })
   }
 
   // ——————————————— //

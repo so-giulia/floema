@@ -1,7 +1,7 @@
 #define PI 3.1415926535897932384626433832795
 
-attribute vec2 uv;
 attribute vec3 position;
+attribute vec2 uv;
 
 uniform float uSpeed;
 uniform vec2 uViewportSizes;
@@ -9,18 +9,15 @@ uniform vec2 uViewportSizes;
 uniform mat4 modelViewMatrix;
 uniform mat4 projectionMatrix;
 
+varying float speed;
 varying vec2 vUv;
 
 void main() {
   vUv = uv;
 
   vec4 newPosition = modelViewMatrix * vec4(position, 1.0);
-  
-  // *G-NOTE* Code from the lesson:
-  // newPosition.z -= (sin(newPosition.y / uViewportSizes.y * PI + PI / 2.0)) + sin(newPosition.x / uViewportSizes.x * PI + PI / 2.0) * abs(uSpeed);
 
-  // *G-NOTE* Just for now I like it more like
-  newPosition.z -= (sin(newPosition.y / uViewportSizes.y * PI + PI / 2.0)) * abs(uSpeed);
+  newPosition.z += (sin(newPosition.y / uViewportSizes.y * PI + PI / 2.0)) * uSpeed;
 
   gl_Position = projectionMatrix * newPosition;
 }
