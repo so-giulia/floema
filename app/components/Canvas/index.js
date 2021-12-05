@@ -154,7 +154,6 @@ export default class Canvas{
       })
 
       this.transition.setElement(this.collections || this.detail)
-
     }
   }
 

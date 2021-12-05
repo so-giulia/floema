@@ -1,6 +1,7 @@
 import { Plane, Transform } from 'ogl'
 import GSAP from 'gsap'
 import map from 'lodash/map'
+
 import Media from './Media'
 
 import Prefix from 'prefix'
@@ -30,8 +31,8 @@ export default class {
 
     this.scroll = {
       current: 0,
-      target: 0,
       start: 0,
+      target: 0,
       lerp: 0.1,
       velocity: 0.5
     }
@@ -69,7 +70,7 @@ export default class {
   // ——— ANIMATIONS ——— //
   // —————————————————— //
   async show(){
-    if(this.transition){
+    if (this.transition) {
       const { src } = this.transition.mesh.program.uniforms.tMap.value.image
       const texture = window.TEXTURES[src]
       const media = this.medias.find(media => media.texture === texture)
@@ -81,24 +82,22 @@ export default class {
         position: { x: 0, y: media.mesh.position.y, z: 0 },
         rotation: media.mesh.rotation,
         scale: media.mesh.scale
-      }, () => {
+      }, _ => {
         media.opacity.multiplier = 1
 
         map(this.medias, item => {
-          if(media !== item){
+          if (media !== item) {
             item.show()
           }
         })
 
         this.scroll.current = this.scroll.target = this.scroll.start = this.scroll.last = scroll
-
       })
     } else {
       map(this.medias, media => media.show())
     }
-
-    map(this.medias, media => media.show())
   }
+
   hide(){
     map(this.medias, media => media.hide())
   }
@@ -133,7 +132,7 @@ export default class {
 
   }
 
-  onWheel({ pixelX, pixelY }){
+  onWheel({ pixelY }){
     this.scroll.target += pixelY
   }
 
@@ -142,7 +141,6 @@ export default class {
    */
   onChange(index){
     this.index = index
-    // console.log(this.index)
 
     const selectedCollection = parseInt(this.mediasElements[this.index].getAttribute('data-index'))
 
@@ -173,7 +171,7 @@ export default class {
       this.scroll.direction = 'left'
     }
 
-    this.scroll.last= this.scroll.current
+    this.scroll.last = this.scroll.current
 
     const index = Math.floor(Math.abs((this.scroll.current - (this.medias[0].bounds.width / 2)) / this.scroll.limit) * (this.medias.length - 1))
 

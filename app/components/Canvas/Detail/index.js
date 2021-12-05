@@ -93,7 +93,6 @@ export default class{
   onResize(sizes){
     this.createBounds(sizes)
     this.updateX()
-    this.updateY()
   }
 
   onTouchDown(){
@@ -129,7 +128,6 @@ export default class{
 
   update(){
     this.updateX()
-    this.updateY()
   }
 
   // ——————————————— //

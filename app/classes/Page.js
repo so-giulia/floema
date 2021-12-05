@@ -108,26 +108,50 @@ export default class Page{
   }
 
   show(animation){
-    ColorsManager.change({
-      backgroundColor: this.element.getAttribute('data-background'),
-      color: this.element.getAttribute('data-color')
-    })
-
-    if (animation){
-      this.animateIn = animation
-    }else{
-      this.animateIn = GSAP.timeline()
-
-      this.animateIn.fromTo(this.element, {
-        autoAlpha: 0
-      }, {
-        autoAlpha: 1
+    return new Promise(resolve => {
+        ColorsManager.change({
+        backgroundColor: this.element.getAttribute('data-background'),
+        color: this.element.getAttribute('data-color')
       })
-    }
 
-    this.animateIn.call( () => {
-      this.addEventListeners()
+      if (animation){
+        this.animateIn = animation
+      }else{
+        this.animateIn = GSAP.timeline()
+
+        this.animateIn.fromTo(this.element, {
+          autoAlpha: 0
+        }, {
+          autoAlpha: 1
+        })
+      }
+
+      this.animateIn.call( () => {
+        this.addEventListeners()
+
+        resolve()
+      })
     })
+    // ColorsManager.change({
+    //   backgroundColor: this.element.getAttribute('data-background'),
+    //   color: this.element.getAttribute('data-color')
+    // })
+
+    // if (animation){
+    //   this.animateIn = animation
+    // }else{
+    //   this.animateIn = GSAP.timeline()
+
+    //   this.animateIn.fromTo(this.element, {
+    //     autoAlpha: 0
+    //   }, {
+    //     autoAlpha: 1
+    //   })
+    // }
+
+    // this.animateIn.call( () => {
+    //   this.addEventListeners()
+    // })
   }
 
   hide(){

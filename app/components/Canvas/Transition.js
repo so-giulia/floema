@@ -21,8 +21,8 @@ export default class{
       fragment,
       vertex,
       uniforms: {
-        tMap: { value: texture },
-        uAlpha: { value: 1 }
+        uAlpha: { value: 1 },
+        tMap: { value: texture }
       }
     })
   }
